@@ -1,7 +1,9 @@
+#include "./sha256.h"
 #include <SPI.h>
 #include <Wire.h>
 #include <Scout.h>
 #include <GS.h>
+
 extern "C" {
 #include "ecc.h"
 #include "./aes.h"
