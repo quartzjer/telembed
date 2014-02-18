@@ -4,6 +4,7 @@
 #include <GS.h>
 extern "C" {
 #include "ecc.h"
+#include "./aes.h"
 }
 
 int RNG(uint8_t *p_dest, unsigned p_size)
@@ -101,11 +102,19 @@ int etest(int loops)
     return 0;
 }
 
+int atest()
+{
+  aes_context ctx;
+  char key[16];
+  aes_setkey_enc(&ctx,(unsigned char*)key,16);
+}
+
 void loop() {
   Scout.loop();
   long start = millis();
-  etest(5);
+  atest();
   sp(millis() - start);
+  etest(5);
   speol();
 }
 
