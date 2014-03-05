@@ -2,11 +2,16 @@
 #include <Wire.h>
 #include <Scout.h>
 #include <GS.h>
-#include "./sha1.h"
+#include <bitlash.h>
+#include <lwm.h>
+#include <js0n.h>
 
 extern "C" {
 #include "ecc.h"
 #include "./aes.h"
+#include "./sha256.h"
+#include "./sha1.h"
+#include "./hmac.h"
 }
 
 int RNG(uint8_t *p_dest, unsigned p_size)
@@ -111,10 +116,25 @@ int atest()
   aes_setkey_enc(&ctx,(unsigned char*)key,16);
 }
 
+int s2test()
+{
+  sha256_ctx_t ctx;
+  sha256_hash_t h;
+  sha256_init(&ctx);
+}
+
+int s1test()
+{
+  hmac_sha1_ctx_t ctx;
+  hmac_sha1_init(&ctx,"foo",3);
+}
+
 void loop() {
   Scout.loop();
   long start = millis();
   atest();
+  s1test();
+  s2test();
   sp(millis() - start);
   etest(5);
   speol();
